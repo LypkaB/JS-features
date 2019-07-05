@@ -1,21 +1,9 @@
-const cards = document.querySelectorAll('.card');
+function parallax(event) {
+    this.querySelectorAll('.layer').forEach(layer => {
+        let speed = layer.getAttribute('data-speed');
 
-for (let i = 0; i < cards.length; i++) {
-    const card = cards[i];
-
-    card.addEventListener('mousemove', startRotate);
-    card.addEventListener('mouseout', stopRotate);
+        layer.style.transform = `translateX(${event.clientX*speed / 1000}px)`;
+    });
 }
 
-function startRotate(event) {
-    const cardItem = this.querySelector('.card-item'),
-          halfHeight = cardItem.offsetHeight / 2,
-          halfWidth = cardItem.offsetWidth / 2;
-
-    cardItem.style.transform = 'rotateX(' + -(event.offsetY - halfHeight) / 5 + 'deg) rotateY(' + (event.offsetX - halfWidth) / 5 + 'deg)';
-}
-
-function stopRotate() {
-    const cardItem = this.querySelector('.card-item');
-    cardItem.style.transform = 'rotate(0)';
-}
+document.addEventListener('mousemove', parallax);

@@ -6,23 +6,49 @@ body {
     margin: 0;
 }
 
-.container {
+img {
+    max-width: 100%;
+}
+
+header {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #ffbe76;
 }
 
-.card {
-    perspective: 1000px;
-    transform-style: preserve-3d;
-    cursor: pointer;
+.scene {
+    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
 }
 
-.card-item {
-    width: 250px;
-    height: 250px;
-    background-color: white;
-    transition: transform 0.2s;
+.layer {
+    width: 110%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: -10%;
+}
+
+.layer-bg,
+.layer-1,
+.layer-2 {
+    background-size: cover;
+}
+
+.layer-bg {
+    background-image: url('../images/parallax-bg.jpg');
+}
+
+.layer-1 {
+    background-image: url('../images/parallax-layer-1.png');
+}
+
+.layer-2 {
+    background-image: url('../images/parallax-layer-2.png');
 }
