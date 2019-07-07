@@ -1,9 +1,13 @@
-function parallax(event) {
-    this.querySelectorAll('.layer').forEach(layer => {
-        let speed = layer.getAttribute('data-speed');
+const progress = document.querySelector('.progress');
 
-        layer.style.transform = `translateX(${event.clientX*speed / 1000}px)`;
-    });
+window.addEventListener('scroll', progressBar);
+
+function progressBar() {
+    let windowScroll = document.body.scrollTop || document.documentElement.scrollTop,
+        windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight,
+        per = Math.round(windowScroll / windowHeight * 100);
+
+    console.log(per);
+
+    progress.style.width = per + '%';
 }
-
-document.addEventListener('mousemove', parallax);
