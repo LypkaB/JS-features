@@ -1,13 +1,17 @@
-const progress = document.querySelector('.progress');
+const circle = document.querySelector('.progress-ring__circle'),
+      radius = circle.r.baseVal.value,
+      circumference = 2 * Math.PI * radius,
+      input = document.querySelector('.percent');
 
-window.addEventListener('scroll', progressBar);
+input.addEventListener('change', function() {
+    setProgress(input.value);
+});
 
-function progressBar() {
-    let windowScroll = document.body.scrollTop || document.documentElement.scrollTop,
-        windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight,
-        per = Math.round(windowScroll / windowHeight * 100);
+circle.style.strokeDasharray = `${circumference} ${circumference}`;
+circle.style.strokeDashoffset = circumference;
 
-    console.log(per);
+function setProgress(percent) {
+    const offet = circumference - percent / 100 * circumference;
 
-    progress.style.width = per + '%';
+    circle.style.strokeDashoffset = offset;
 }
