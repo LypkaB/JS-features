@@ -6,69 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>«JavaScript» features</title>
-
-    <!-- Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <title>ToDo List</title>
 
     <!-- Style -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="calc">
-        <div class="tabs">
-            <div class="tab-left active">Landing</div>
-            <div class="tab-right">Corporate website</div>
-        </div>
-        <!-- /.tabs -->
+    <div class="container">
+        <div class="todo_list">
+            <h1>ToDo List</h1>
 
-        <div class="blocks" id="blocks-block">
-            <div class="blocks-title">Number of blocks</div>
-            <input type="number" class="counter" id="counter-block">
-        </div>
-        <!-- /.blocks #blocks -->
-
-        <div class="blocks" id="pages-block">
-            <div class="blocks-title">Number of pages</div>
-            <input type="number" class="counter" id="counter-pages">
-        </div>
-        <!-- /.blocks #pages -->
-
-        <div class="blocks">
-            <div class="blocks-title">How many hours per project</div>
-            <input type="number" class="counter" id="counter-hours">
-        </div>
-        <!-- /.blocks -->
-
-        <div class="blocks">
-            <div class="blocks-title">The cost of your hour</div>
-            <input type="number" class="counter" id="counter-rate">
-        </div>
-        <!-- /.blocks -->
-
-        <div class="addiction">
-            <div class="addiction-title">Additionally</div>
-
-            <div class="addiction-block">
-                <input type="checkbox" class="checkbox" id="changes-check">
-                Ability to edit text on the site
+            <div class="create_new_todo">
+                <input type="text" class="message" placeholder="Description">
+                <button class="add">Add</button>
             </div>
 
-            <div class="addiction-block">
-                <input type="checkbox" class="checkbox" id="cms-check">
-                Installation on CMS
+            <div class="wrapper">
+                <ul class="todo"></ul>
             </div>
         </div>
-        <!-- /.addiction -->
-
-        <div class="total">
-            Total cost
-            <input type="text" value="500" class="total-count" id="total-value">
-        </div>
-        <!-- /.total -->
     </div>
 
     <!-- Script -->
-    <script src="assets/js/script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
