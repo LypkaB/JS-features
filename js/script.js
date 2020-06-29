@@ -1,72 +1,73 @@
-const addMessage = document.querySelector('.message'),
-      addButton = document.querySelector('.add'),
-      todo = document.querySelector('.todo');
+document.addEventListener('DOMContentLoaded', () => {
+    const btnReset = document.getElementById('reset'),
+          btnYes = document.getElementById('yes'),
+          btnNo = document.getElementById('no'),
+          blockQuestion = document.querySelector('.question'),
+          startText = blockQuestion.textContent;
 
-let todoList = [];
+    const handler = () => {
+        let step = 0;
 
-if (localStorage.getItem('todo')) {
-    todoList = JSON.parse(localStorage.getItem('todo'));
-    displayMessages();
-}
+        const questions = [
+            'The content in the block is related by meaning?',
+            'Does the content in the block relate to the rest of the page?',
+            'Is the content self-contained?'
+        ];
 
-addButton.addEventListener('click', () => {
-    if (!addMessage.value) return;
+        const answers = ['div', 'aside', 'section', 'article'];
 
-    const newTodo = {
-        todo: addMessage.value,
-        checked: false,
-        important: false
-    };
+        return (event) => {
+            btnNo.style.display = 'inline-block';
 
-    todoList.push(newTodo);
-    displayMessages();
-    localStorage.setItem('todo', JSON.stringify(todoList));
-    addMessage.value = '';
-});
+            const theEnd = () => {
+                btnYes.style.display = 'none';
+                btnNo.style.display = 'none';
 
-function displayMessages() {
-    let displayMessage = '';
+                blockQuestion.style.fontSize = '30px';
+                blockQuestion.style.cursor = 'pointer';
+                blockQuestion.textContent = `<${blockQuestion.textContent}>`;
+                blockQuestion.addEventListener('click', init);
+            };
 
-    if (todoList.length === 0) todo.innerHTML = '';
-
-    todoList.forEach((item, i) => {
-        displayMessage += `
-            <li>
-                <input type="checkbox" id="item_${i}" ${item.checked ? 'checked' : ''}>
-                <label for="item_${i}" class="${item.important ? 'important' : ''}">${item.todo}</label>
-            </li>
-        `;
-
-        todo.innerHTML = displayMessage;
-    })
-}
-
-todo.addEventListener('change', (e) => {
-    const valueLabel = todo.querySelector('[for=' + e.target.getAttribute('id') + ']').innerHTML;
-
-    todoList.forEach((item) => {
-        if (item.todo === valueLabel) {
-            item.checked = !item.checked;
-            localStorage.setItem('todo', JSON.stringify(todoList));
-        }
-    });
-
-    console.log('valueLabel: ', valueLabel);
-});
-
-todo.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-
-    todoList.forEach((item, i) => {
-        if (item.todo === e.target.innerHTML) {
-            if (e.ctrlKey || e.metaKey) {
-                todoList.splice(i, 1);
-            } else {
-                item.important = !item.important;
+            if (event.target === btnYes) {
+                blockQuestion.textContent = questions[step];
+                if (step === questions.length) {
+                    blockQuestion.textContent = answers[step];
+                    theEnd();
+                }
             }
 
-            displayMessages();
-            localStorage.setItem('todo', JSON.stringify(todoList));
+            if (event.target === btnNo) {
+                blockQuestion.textContent = answers[step - 1];
+                theEnd();
+            }
+
+            step += 1;
         }
-    });
+    };
+
+    let start = handler();
+
+    const init = () => {
+        blockQuestion.removeEventListener('click', init);
+
+        btnNo.style.display = 'none';
+        btnYes.style.display = 'inline-block';
+
+        blockQuestion.textContent = startText;
+
+        blockQuestion.style.fontSize = '';
+        blockQuestion.style.cursor = '';
+
+        btnYes.removeEventListener('click', start);
+        btnNo.removeEventListener('click', start);
+
+        start = handler();
+        btnYes.addEventListener('click', start);
+        btnNo.addEventListener('click', start);
+    };
+
+    btnReset.addEventListener('click', init);
+
+    init();
 });

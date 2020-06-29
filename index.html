@@ -6,26 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>ToDo List</title>
+    <title>«JavaScript» features</title>
 
     <!-- Style -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="todo_list">
-            <h1>ToDo List</h1>
-
-            <div class="create_new_todo">
-                <input type="text" class="message" placeholder="Description">
-                <button class="add">Add</button>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>Crib</h1>
+                <button id="reset" class="button">Reset</button>
             </div>
-
-            <div class="wrapper">
-                <ul class="todo"></ul>
-            </div>
+            <!-- /.head-content -->
         </div>
-    </div>
+        <!-- /.container -->
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="quiz">
+                <div class="quiz-wrapper">
+                    <p class="question">Let's start?</p>
+
+                    <div class="buttons">
+                        <button id="yes" class="button">Yes</button>
+                        <button id="no" class="button">No</button>
+                    </div>
+                </div>
+                <!-- /.quiz-wrapper -->
+            </div>
+            <!-- /.quiz -->
+        </div>
+        <!-- /.container -->
+    </main>
 
     <!-- Script -->
     <script src="js/script.js"></script>
