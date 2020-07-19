@@ -1,73 +1,31 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const btnReset = document.getElementById('reset'),
-          btnYes = document.getElementById('yes'),
-          btnNo = document.getElementById('no'),
-          blockQuestion = document.querySelector('.question'),
-          startText = blockQuestion.textContent;
+let clicks = 0;
+const TIMEOUT = 5000,
+      display = document.querySelector('#display'),
+      button = document.querySelector('#button'),
+      counter = document.querySelector('#counter');
 
-    const handler = () => {
-        let step = 0;
+button.onclick = start;
 
-        const questions = [
-            'The content in the block is related by meaning?',
-            'Does the content in the block relate to the rest of the page?',
-            'Is the content self-contained?'
-        ];
+function start() {
+    const startTime = Date.now();
 
-        const answers = ['div', 'aside', 'section', 'article'];
+    display.textContent = formatTime(TIMEOUT);
+    button.onclick = () => counter.textContent = clicks++;
 
-        return (event) => {
-            btnNo.style.display = 'inline-block';
+    const interval = setInterval(() => {
+        const delta = Date.now() - startTime;
+        display.textContent = formatTime(TIMEOUT - delta);
+    }, 100);
 
-            const theEnd = () => {
-                btnYes.style.display = 'none';
-                btnNo.style.display = 'none';
+    const timeout = setTimeout(() => {
+        button.onclick = null;
+        display.textContent = 'Game Over';
 
-                blockQuestion.style.fontSize = '30px';
-                blockQuestion.style.cursor = 'pointer';
-                blockQuestion.textContent = `<${blockQuestion.textContent}>`;
-                blockQuestion.addEventListener('click', init);
-            };
+        clearInterval(interval);
+        clearTimeout(timeout);
+    }, TIMEOUT);
+}
 
-            if (event.target === btnYes) {
-                blockQuestion.textContent = questions[step];
-                if (step === questions.length) {
-                    blockQuestion.textContent = answers[step];
-                    theEnd();
-                }
-            }
-
-            if (event.target === btnNo) {
-                blockQuestion.textContent = answers[step - 1];
-                theEnd();
-            }
-
-            step += 1;
-        }
-    };
-
-    let start = handler();
-
-    const init = () => {
-        blockQuestion.removeEventListener('click', init);
-
-        btnNo.style.display = 'none';
-        btnYes.style.display = 'inline-block';
-
-        blockQuestion.textContent = startText;
-
-        blockQuestion.style.fontSize = '';
-        blockQuestion.style.cursor = '';
-
-        btnYes.removeEventListener('click', start);
-        btnNo.removeEventListener('click', start);
-
-        start = handler();
-        btnYes.addEventListener('click', start);
-        btnNo.addEventListener('click', start);
-    };
-
-    btnReset.addEventListener('click', init);
-
-    init();
-});
+function formatTime(ms) {
+    return Number.parseFloat(ms/1000).toFixed(2);
+}
