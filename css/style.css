@@ -1,41 +1,118 @@
-* {
-    margin: 0;
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    background: rgb(173, 54, 205);
+    background: linear-gradient(191deg, rgba(173, 54, 205, 1) 0%, rgba(255, 0, 185, 1) 49%, rgba(255, 156, 25, 1) 100%);
+}
+
+h1 {
+    margin-top: 100px;
+    margin-bottom: 10px;
+    font-size: 72px;
+    font-weight: 900;
+    font-style: italic;
+    color: #ffffff21;
+    text-align: center;
+}
+
+#todo {
+    width: 50%;
+    max-width: 800px;
+    max-height: 70vh;
+    margin: auto;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px -9px black;
+    overflow: auto;
+}
+
+#todo::-webkit-scrollbar {
+    width: 4px;
+}
+
+#todo::-webkit-scrollbar-thumb {
+    background-color: #ff00b9;
+    outline: 2px solid slategrey;
+}
+
+#list {
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
+    width: 100%;
     padding: 0;
 }
 
-#game {
-    width: 400px;
-    height: 500px;
-    margin: auto;
-    border: 1px solid black;
-    overflow: hidden;
+#list li:hover {
+    background: #eee;
 }
 
-#character {
-    width: 20px;
-    height: 20px;
-    background-color: red;
-    border-radius: 50%;
-    position: relative;
-    top: 400px;
-    left: 190px;
-    z-index: 1000000;
+#list li.item {
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
+    display: flex;
+    width: 100%;
+    padding: 20px 30px 10px 30px;
 }
 
-.block {
-    width: 400px;
-    height: 20px;
-    margin-top: -20px;
-    background-color: black;
-    position: relative;
-    top: 100px;
+#list li.item span {
+    flex-grow: 1;
+    font-size: 24px;
+    font-weight: 100;
+    color: #595959;
 }
 
-.hole {
-    width: 40px;
-    height: 20px;
-    margin-top: -20px;
-    background-color: white;
-    position: relative;
-    top: 100px;
+#list li a {
+    margin-top: -5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#list li.item i {
+    color: #cecece;
+}
+
+#list li.item a:hover i {
+    color: grey;
+    transition: all 100ms linear;
+}
+
+input {
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
+    padding: 10px;
+    border-radius: 0;
+    border: none;
+    background: #f6f4f4;
+    border-bottom: 2px solid #e5e5e5;
+    width: 100%;
+    font-size: 40px;
+    color: #696969;
+    padding: 30px 45px;
+}
+
+::-webkit-input-placeholder {
+    color: #bbb;
+}
+
+::-moz-placeholder {
+    color: #bbb;
+}
+
+:-ms-input-placeholder {
+    color: #bbb;
+}
+
+:-moz-placeholder {
+    color: #eee;
+}
+
+input#add-item:focus {
+    border-bottom: 2px solid #a2c7ec;
+    outline: none;
 }

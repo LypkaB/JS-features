@@ -8,12 +8,17 @@
 
     <title>«JavaScript» features</title>
 
+    <!-- Font-icon -->
+    <link href="https://unpkg.com/ionicons@4.5.10-1/dist/css/ionicons.min.css" rel="stylesheet">
+
     <!-- Style -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div id="game">
-        <div id="character"></div>
+    <h1>Todoodles</h1>
+    <div id="todo">
+        <input id="add-item" type="text" name="item" placeholder="Add an item..." onkeypress="view.addItem(event)">
+        <ul id="list"></ul>
     </div>
 
     <!-- Script -->
