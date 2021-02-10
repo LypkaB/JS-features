@@ -1,83 +1,108 @@
-model = {
-    items: []
-};
+/*<----- Link - http://jsfiddle.net/MxpR6/1/ ----->*/
 
-view = {
-    clearList: function() {
-        const range = document.createRange();
+/*
+    function hasScroll(el, direction) {
+        direction = (direction === 'vertical') ? 'scrollTop' : 'scrollLeft';
 
-        range.selectNodeContents(document.getElementById('list'));
-        range.deleteContents();
-    },
-    render: function() {
-        this.clearList();
+        var result = !! el[direction];
 
-        if (model.items.length != 0) {
-            list = document.getElementById('list');
-
-            for (let i = 0; i < model.items.length; i++) {
-                item      = document.createElement('li');
-                span      = document.createElement('span');
-                check     = document.createElement('a');
-                cross     = document.createElement('a');
-                iconCheck = document.createElement('i');
-                iconCross = document.createElement('i');
-
-                item.className = 'item';
-                span.className = 'item-text';
-                check.className = 'item-complete';
-                cross.className = 'item-delete';
-
-                span.textContent = model.items[i].text;
-
-                if (model.items[i].completed) span.setAttribute('style', 'text-decoration: line-through; color: #bbb');
-
-                iconCheck.setAttribute('class', 'icon ion-md-checkmark');
-                iconCheck.setAttribute('data-id', i);
-                iconCross.setAttribute('class', 'icon ion-md-trash');
-                iconCross.setAttribute('data-id', i);
-
-                check.setAttribute("onclick", "controller.completeItem('" + i + "')");
-                cross.setAttribute("onclick", "controller.deleteItem('" + i + "')");
-
-                check.appendChild(iconCheck);
-                cross.appendChild(iconCross);
-                item.appendChild(span);
-                item.appendChild(check);
-                item.appendChild(cross);
-
-                list.appendChild(item);
-            }
+        if (!result) {
+            el[direction] = 1;
+            result = !!el[direction];
+            el[direction] = 0;
         }
-    },
-    addItem: function(e) {
-        if (e.code == 'Enter') {
-            input = document.getElementById('add-item');
+        return result;
+    }
 
-            if ((input.value != '') || (input.value != ' ')) {
-                controller.addItem(input.value);
-                return false;
+    alert(hasScroll(document.body, 'vertical'));
+    alert(hasScroll(document.body, 'horizontal'));
+*/
+
+/*<----- variant №1 ----->*/
+/*
+    document.addEventListener('DOMContentLoaded', () => {
+        const subnav = document.querySelector('#subnav');
+
+        function hasScroll() {
+            let result = !!subnav['scrollTop'];
+
+            if (!result) {
+                subnav['scrollTop'] = 1;
+                result = !!subnav['scrollTop'];
+                subnav['scrollLeft'] = 0;
             }
+            return result;
         }
-    }
-};
 
-controller = {
-    init: function() {
-        view.render();
-    },
-    addItem: function(item) {
-        list_item = { text: item, completed: false };
-        model.items.push(list_item);
-        document.getElementById('add-item').value = "";
-        view.render();
-    },
-    completeItem: function(item_index) {
-        model.items[item_index].completed = !model.items[item_index].completed;
-        view.render();
-    },
-    deleteItem: function(item_index) {
-        model.items.splice(item_index, 1);
-        view.render();
+        if (hasScroll() === true) {
+            subnav.classList = 'subnav-indicator';
+        }
+
+        const subnavIndicator = document.querySelector('.subnav-indicator');
+
+        subnav.addEventListener('scroll', () => {
+            if (Math.ceil(subnavIndicator.scrollTop + subnavIndicator.clientHeight) >= subnavIndicator.scrollHeight) {
+                subnavIndicator.classList.add('subnav-indicator_up');
+            } else if (subnavIndicator.scrollTop <= 0) {
+                subnavIndicator.classList.remove('subnav-indicator_up');
+            }
+        })
+    })
+*/
+
+/*<----- variant №2 ----->*/
+/*
+    document.addEventListener('DOMContentLoaded', () => {
+        const subnav = document.querySelector('#subnav');
+        let result = !!subnav['scrollTop'];
+
+        if (!result) {
+            subnav['scrollTop'] = 1;
+            result = !!subnav['scrollTop'];
+            subnav['scrollLeft'] = 0;
+        }
+
+        if (result) subnav.classList.add('subnav-indicator');
+
+        const subnavIndicator = document.querySelector('.subnav-indicator');
+
+        subnav.addEventListener('scroll', () => {
+            if (Math.ceil(subnavIndicator.scrollTop + subnavIndicator.clientHeight) >= subnavIndicator.scrollHeight) {
+                subnavIndicator.classList.add('subnav-indicator_up');
+            } else if (subnavIndicator.scrollTop <= 0) {
+                subnavIndicator.classList.remove('subnav-indicator_up');
+            }
+        })
+    })
+*/
+
+/*<----- variant №3 ----->*/
+document.addEventListener('DOMContentLoaded', () => {
+    const subnav = document.querySelector('#subnav'),
+          subnavIndicator = document.querySelector('.subnav-indicator');
+    let result = !!subnav.scrollTop;
+
+    if (!result) {
+        subnav.scrollTop = 1;
+        result = !!subnav.scrollTop;
+        subnav.scrollLeft = 0;
     }
-};
+
+    if (result) subnavIndicator.classList.add('subnav-indicator_visible');
+
+    subnav.addEventListener('scroll', () => {
+        if (Math.ceil(subnav.scrollTop + subnav.clientHeight) >= subnav.scrollHeight) {
+            subnavIndicator.classList.add('subnav-indicator_up');
+        } else if (subnav.scrollTop <= 0) {
+            subnavIndicator.classList.remove('subnav-indicator_up');
+        }
+    })
+
+    subnavIndicator.addEventListener('click', () => {
+        if (!subnavIndicator.classList.contains('subnav-indicator_up')) {
+            subnav.scrollTo({top: subnav.scrollHeight - subnav.clientHeight, behavior: 'smooth'})
+        } else {
+            subnav.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    })
+})

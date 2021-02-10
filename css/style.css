@@ -1,118 +1,52 @@
-html {
-    height: 100%;
+#subnav {
+    width: 200px;
+    height: 200px;
+    background-color: #e7eff8;
+    overflow-y: scroll;
+    position: relative;
 }
 
-body {
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    background: rgb(173, 54, 205);
-    background: linear-gradient(191deg, rgba(173, 54, 205, 1) 0%, rgba(255, 0, 185, 1) 49%, rgba(255, 156, 25, 1) 100%);
-}
-
-h1 {
-    margin-top: 100px;
-    margin-bottom: 10px;
-    font-size: 72px;
-    font-weight: 900;
-    font-style: italic;
-    color: #ffffff21;
-    text-align: center;
-}
-
-#todo {
-    width: 50%;
-    max-width: 800px;
-    max-height: 70vh;
-    margin: auto;
-    background: white;
-    border-radius: 6px;
-    box-shadow: 0 4px 12px -9px black;
-    overflow: auto;
-}
-
-#todo::-webkit-scrollbar {
-    width: 4px;
-}
-
-#todo::-webkit-scrollbar-thumb {
-    background-color: #ff00b9;
-    outline: 2px solid slategrey;
-}
-
-#list {
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box; /* Firefox, other Gecko */
-    box-sizing: border-box; /* Opera/IE 8+ */
-    width: 100%;
+#subnav ul {
+    margin: 0;
     padding: 0;
+    list-style: none;
 }
 
-#list li:hover {
-    background: #eee;
+#subnav ul li {
+    padding-left: 20px;
 }
 
-#list li.item {
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box; /* Firefox, other Gecko */
-    box-sizing: border-box; /* Opera/IE 8+ */
-    display: flex;
-    width: 100%;
-    padding: 20px 30px 10px 30px;
-}
-
-#list li.item span {
-    flex-grow: 1;
-    font-size: 24px;
-    font-weight: 100;
-    color: #595959;
-}
-
-#list li a {
-    margin-top: -5px;
-    padding: 10px;
-    cursor: pointer;
-}
-
-#list li.item i {
-    color: #cecece;
-}
-
-#list li.item a:hover i {
-    color: grey;
-    transition: all 100ms linear;
-}
-
-input {
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box; /* Firefox, other Gecko */
-    box-sizing: border-box; /* Opera/IE 8+ */
-    padding: 10px;
-    border-radius: 0;
+.subnav-indicator {
+    display: none;
+    width: 16px;
+    height: 16px;
     border: none;
-    background: #f6f4f4;
-    border-bottom: 2px solid #e5e5e5;
-    width: 100%;
-    font-size: 40px;
-    color: #696969;
-    padding: 30px 45px;
-}
-
-::-webkit-input-placeholder {
-    color: #bbb;
-}
-
-::-moz-placeholder {
-    color: #bbb;
-}
-
-:-ms-input-placeholder {
-    color: #bbb;
-}
-
-:-moz-placeholder {
-    color: #eee;
-}
-
-input#add-item:focus {
-    border-bottom: 2px solid #a2c7ec;
+    position: sticky;
+    top: 90%;
+    left: 80%;
+    cursor: pointer;
     outline: none;
+}
+
+.subnav-indicator.subnav-indicator_visible {
+    display: inline-block;
+}
+
+.subnav-indicator:hover {
+    background-color: pink;
+}
+
+.subnav-indicator::after {
+    content: '';
+    position: absolute;
+    top: 30%;
+    left: 0;
+    border: 8px solid transparent;
+    border-top: 8px solid #404040;
+    border-radius: 5px;
+}
+
+.subnav-indicator.subnav-indicator_up::after {
+    border-top: none;
+    border-bottom: 8px solid #404040;
 }
