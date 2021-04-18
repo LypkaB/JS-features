@@ -1,52 +1,99 @@
-#subnav {
-    width: 200px;
-    height: 200px;
-    background-color: #e7eff8;
-    overflow-y: scroll;
+/* Before optimization */
+/*.page {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.video {
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    background-color: black;
     position: relative;
 }
 
-#subnav ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-#subnav ul li {
-    padding-left: 20px;
-}
-
-.subnav-indicator {
-    display: none;
-    width: 16px;
-    height: 16px;
+.video__embed {
+    width: 100%;
+    height: 100%;
     border: none;
-    position: sticky;
-    top: 90%;
-    left: 80%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}*/
+
+/* After optimization */
+.page {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.video {
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    background-color: black;
+    position: relative;
+}
+
+.video__link {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.video__media {
+    width: 100%;
+    height: 100%;
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.video__button {
+    display: none;
+    width: 68px;
+    height: 48px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     cursor: pointer;
+    z-index: 1;
+}
+
+.video__button-shape {
+    fill: #212121;
+    fill-opacity: 0.8;
+}
+
+.video__button-icon {
+    fill: white;
+}
+
+.video__button:focus {
     outline: none;
 }
 
-.subnav-indicator.subnav-indicator_visible {
-    display: inline-block;
+.video:hover .video__button-shape,
+.video__button:focus .video__button-shape {
+    fill: #ff0000;
+    fill-opacity: 1;
 }
 
-.subnav-indicator:hover {
-    background-color: pink;
+.video--enabled {
+    cursor: pointer;
 }
 
-.subnav-indicator::after {
-    content: '';
-    position: absolute;
-    top: 30%;
-    left: 0;
-    border: 8px solid transparent;
-    border-top: 8px solid #404040;
-    border-radius: 5px;
-}
-
-.subnav-indicator.subnav-indicator_up::after {
-    border-top: none;
-    border-bottom: 8px solid #404040;
+.video--enabled .video__button {
+    display: block;
 }

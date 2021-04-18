@@ -1,108 +1,54 @@
-/*<----- Link - http://jsfiddle.net/MxpR6/1/ ----->*/
-
-/*
-    function hasScroll(el, direction) {
-        direction = (direction === 'vertical') ? 'scrollTop' : 'scrollLeft';
-
-        var result = !! el[direction];
-
-        if (!result) {
-            el[direction] = 1;
-            result = !!el[direction];
-            el[direction] = 0;
-        }
-        return result;
-    }
-
-    alert(hasScroll(document.body, 'vertical'));
-    alert(hasScroll(document.body, 'horizontal'));
-*/
-
-/*<----- variant №1 ----->*/
-/*
-    document.addEventListener('DOMContentLoaded', () => {
-        const subnav = document.querySelector('#subnav');
-
-        function hasScroll() {
-            let result = !!subnav['scrollTop'];
-
-            if (!result) {
-                subnav['scrollTop'] = 1;
-                result = !!subnav['scrollTop'];
-                subnav['scrollLeft'] = 0;
-            }
-            return result;
-        }
-
-        if (hasScroll() === true) {
-            subnav.classList = 'subnav-indicator';
-        }
-
-        const subnavIndicator = document.querySelector('.subnav-indicator');
-
-        subnav.addEventListener('scroll', () => {
-            if (Math.ceil(subnavIndicator.scrollTop + subnavIndicator.clientHeight) >= subnavIndicator.scrollHeight) {
-                subnavIndicator.classList.add('subnav-indicator_up');
-            } else if (subnavIndicator.scrollTop <= 0) {
-                subnavIndicator.classList.remove('subnav-indicator_up');
-            }
-        })
-    })
-*/
-
-/*<----- variant №2 ----->*/
-/*
-    document.addEventListener('DOMContentLoaded', () => {
-        const subnav = document.querySelector('#subnav');
-        let result = !!subnav['scrollTop'];
-
-        if (!result) {
-            subnav['scrollTop'] = 1;
-            result = !!subnav['scrollTop'];
-            subnav['scrollLeft'] = 0;
-        }
-
-        if (result) subnav.classList.add('subnav-indicator');
-
-        const subnavIndicator = document.querySelector('.subnav-indicator');
-
-        subnav.addEventListener('scroll', () => {
-            if (Math.ceil(subnavIndicator.scrollTop + subnavIndicator.clientHeight) >= subnavIndicator.scrollHeight) {
-                subnavIndicator.classList.add('subnav-indicator_up');
-            } else if (subnavIndicator.scrollTop <= 0) {
-                subnavIndicator.classList.remove('subnav-indicator_up');
-            }
-        })
-    })
-*/
-
-/*<----- variant №3 ----->*/
 document.addEventListener('DOMContentLoaded', () => {
-    const subnav = document.querySelector('#subnav'),
-          subnavIndicator = document.querySelector('.subnav-indicator');
-    let result = !!subnav.scrollTop;
+    function findVideos() {
+        const videos = document.querySelectorAll('.video');
 
-    if (!result) {
-        subnav.scrollTop = 1;
-        result = !!subnav.scrollTop;
-        subnav.scrollLeft = 0;
+        for (let i = 0; i < videos.length; i++) {
+            setupVideo(videos[i]);
+        }
     }
 
-    if (result) subnavIndicator.classList.add('subnav-indicator_visible');
+    function setupVideo(video) {
+        const link = video.querySelector('.video__link'),
+              media = video.querySelector('.video__media'),
+              button = video.querySelector('.video__button'),
+              id = parseMediaURL(media);
 
-    subnav.addEventListener('scroll', () => {
-        if (Math.ceil(subnav.scrollTop + subnav.clientHeight) >= subnav.scrollHeight) {
-            subnavIndicator.classList.add('subnav-indicator_up');
-        } else if (subnav.scrollTop <= 0) {
-            subnavIndicator.classList.remove('subnav-indicator_up');
-        }
-    })
+        video.addEventListener('click', () => {
+            const iframe = createIframe(id);
 
-    subnavIndicator.addEventListener('click', () => {
-        if (!subnavIndicator.classList.contains('subnav-indicator_up')) {
-            subnav.scrollTo({top: subnav.scrollHeight - subnav.clientHeight, behavior: 'smooth'})
-        } else {
-            subnav.scrollTo({top: 0, behavior: 'smooth'});
-        }
-    })
+            link.remove();
+            button.remove();
+            video.appendChild(iframe);
+        });
+
+        link.removeAttribute('href');
+        video.classList.add('video--enabled');
+    }
+
+    function parseMediaURL(media) {
+        const regexp = /https:\/\/i\.ytimg\.com\/vi\/([a-zA-Z0-9_-]+)\/maxresdefault\.jpg/i,
+              url = media.src,
+              match = url.match(regexp);
+
+        return match[1];
+    }
+
+    function createIframe(id) {
+        const iframe = document.createElement('iframe');
+
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.setAttribute('allow', 'autoplay');
+        iframe.setAttribute('src', generateURL(id));
+        iframe.classList.add('video__media');
+
+        return iframe;
+    }
+
+    function generateURL(id) {
+        const query = '?rel=0&showinfo=0&autoplay=1';
+
+        return 'https://www.youtube.com/embed/' + id + query;
+    }
+
+    findVideos();
 })
