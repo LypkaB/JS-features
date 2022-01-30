@@ -1,0 +1,101 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.survey {
+    &-rate {
+        &__table {
+            margin-left: 10px;
+            margin-right: 10px;
+
+            .table {
+                &__header {
+                    th {
+                        padding-left: 30px;
+                        font-size: 14px;
+                        font-weight: normal;
+
+                        &:first-child {
+                            width: 50%;
+                        }
+                    }
+                }
+
+                &__rate-row {
+                    border-top: 0.5px solid #c4c4c4;
+                    border-bottom: 0.5px solid #c4c4c4;
+                    font-size: 14px;
+                    color: #5a5959;
+
+                    .rate {
+                        &-question {
+                            padding: 10px 10px 10px 0;
+                            border-right: 0.5px solid #c4c4c4;
+                        }
+
+                        &-box {
+                            &__title {
+                                display: none;
+                                text-align: center;
+                            }
+
+                            div {
+                                display: flex;
+                                justify-content: space-around;
+                                padding-top: 10px;
+
+                                label {
+                                    position: relative;
+
+                                    input {
+                                        position: absolute;
+                                        z-index: -1;
+                                        opacity: 0;
+                                    }
+
+                                    span {
+                                        display: block;
+                                        width: 23px;
+                                        height: 23px;
+                                        border-radius: 50%;
+                                        cursor: pointer;
+                                    }
+                                }
+                            }
+                        }
+
+                        &-very div label {
+                            input:checked ~ span {
+                                background-color: #7ce18e;
+                            }
+
+                            span {
+                                border: 2px solid #7ce18e;
+                            }
+                        }
+
+                        &-somewhat div label {
+                            input:checked ~ span {
+                                background-color: #f9e57d;
+                            }
+
+                            span {
+                                border: 2px solid #f9e57d;
+                            }
+                        }
+
+                        &-not div label {
+                            input:checked ~ span {
+                                background-color: #ff7b6b;
+                            }
+
+                            span {
+                                border: 2px solid #ff7b6b;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
